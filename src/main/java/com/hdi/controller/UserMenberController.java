@@ -36,15 +36,22 @@ public class UserMenberController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(UserMenberController.class);
     @Autowired
     private UserMenberService userMenberService;
+
     /**
-     * 增加会员信息
-     * @param userName (对象接收参数)
+     * 用户登录（前端也要做校验）
+     * @param userName
+     * @param password
+     * @param verificationCode
      * @return
      */
     @RequestMapping("/login")
     public ResultBean login(@RequestParam(name = "userName",required = true) String userName,
                             @RequestParam(name = "password",required = true)String password,
                             @RequestParam(name = "verificationCode",required = true)String verificationCode){
+        if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password) || StringUtil.isNotEmpty(verificationCode)){
+            logger.info("登录信息必要参数不能空");
+            return ResultBean.buildError("登录信息必要参数不能空");
+        }
         return ResultBean.build();
     }
 
@@ -72,9 +79,12 @@ public class UserMenberController extends BaseController {
         }
         return ResultBean.build();
     }
+
     /**
-     * 增加会员信息
+     * 获取用户分享列表
      * @param inviter (分享人账号)
+     * @param pageNumber
+     * @param pageSize
      * @return
      */
     @RequestMapping("/getInviters")
@@ -83,6 +93,7 @@ public class UserMenberController extends BaseController {
                                             @RequestParam(value = "pageSize",required = false)Integer pageSize){
         ResultBean<PageTool> resultBean = ResultBean.build();
         if (StringUtil.isEmpty(inviter)){
+            logger.info("分享人账号不能为空["+inviter+"]");
             return ResultBean.buildError("分享人账号不能为空");
         }
         PageTool<UserMembers> pageTool = new PageTool<>();
@@ -95,9 +106,10 @@ public class UserMenberController extends BaseController {
             resultBean.setData(page);
             return resultBean;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("获取用户分享列表:"+e.getMessage());
+            resultBean.withError("获取用户分享列表错误，请联系管理员！");
+            return resultBean;
         }
-        return ResultBean.build();
     }
     /**
      * 图形验证码
