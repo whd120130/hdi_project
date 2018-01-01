@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/mysql?autoReconnect=true&;useOldAliasMetadataBehavior=true&;useUnicode=true&;characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    #sql-script-encoding: utf-8
+    maximum-pool-size: 100
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 18800
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+server:
+  port: 8020
+  tomcat:
+    uri-encoding: UTF-8
+
+
+
+
