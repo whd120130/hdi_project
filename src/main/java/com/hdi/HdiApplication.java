@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling(定时启动任务暂时注释掉)
 public class HdiApplication{
 	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {
