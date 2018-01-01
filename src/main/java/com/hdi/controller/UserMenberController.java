@@ -92,7 +92,7 @@ public class UserMenberController extends BaseController {
         }
         try {
             PageTool<UserMembers> page = userMenberService.findInviterByPage(pageTool,inviter);
-            resultBean.setValue(page);
+            resultBean.setData(page);
             return resultBean;
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class UserMenberController extends BaseController {
             Map map = new HashMap();
             map.put("base64", base64Str);
             map.put("image", objs[1]);
-            resultBean.setValue(map);
+            resultBean.setData(map);
             return resultBean;
         } catch (Exception e) {
             e.printStackTrace();

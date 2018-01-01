@@ -30,21 +30,21 @@ public class ResultBean<T>extends AbstractResult implements Serializable {
         return new ResultBean<T>(ResultStatus.SUCCESS.ordinal(), message);
     }
 
-    private T value;
+    private T data;
 
-    public T getValue() {
-        return value;
+    public T getData() {
+        return data;
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public void setData(T data) {
+        this.data = data;
     }
 
     /**
      * 成功
      */
-    public void success(T value) {
+    public void success(T data) {
         this.success();
-        this.value = value;
+        this.data = data;
     }
 }
