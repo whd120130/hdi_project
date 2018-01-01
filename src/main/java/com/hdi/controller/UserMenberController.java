@@ -33,6 +33,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserMenberController extends BaseController {
+
     private static final Logger logger = LoggerFactory.getLogger(UserMenberController.class);
     @Autowired
     private UserMenberService userMenberService;

@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by 王慧东 on 2017/12/31.
+ * 拦截器
+ * @author 王慧东
+ * @date 2-17-12-31
+ * @version 1.0
  */
 @Component
 public class ChanelInterceptor implements HandlerInterceptor {
@@ -34,7 +37,7 @@ public class ChanelInterceptor implements HandlerInterceptor {
                     logger.error("Id not found");
                     return false;
                 } else {
-                    ((BaseController) method.getBean()).setUserId(Integer.parseInt(id));
+                    ((BaseController) method.getBean()).setId(Integer.parseInt(id));
                     logger.info(Thread.currentThread().getName() + " set userId:" + id);
                     return true;
                 }

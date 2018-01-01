@@ -11,7 +11,7 @@ public class BaseController {
      */
     private ThreadLocal<String> ipAddress = new ThreadLocal();
 
-    public void setUserId(Integer userId) {
+    public void setId(Integer userId) {
         this.Id.set(userId);
     }
 
@@ -19,7 +19,7 @@ public class BaseController {
         this.ipAddress.set(ipAddress);
     }
 
-    public Integer getUserId() {
+    public Integer getId() {
         if (Id != null) {
             return Id.get();
         }
