@@ -18,7 +18,7 @@ public class ResultBean<T>extends AbstractResult implements Serializable {
     }
 
     public static <T> ResultBean<T> build() {
-        return new ResultBean<T>(ResultStatus.SUCCESS.ordinal(), null);
+        return new ResultBean<T>(ResultStatus.SUCCESS.ordinal(), "success");
     }
     public static <T> ResultBean<T> buildError(String message) {
         if (StringUtil.isEmpty(message)){

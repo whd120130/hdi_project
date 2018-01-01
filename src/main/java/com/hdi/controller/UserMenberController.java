@@ -48,10 +48,10 @@ public class UserMenberController extends BaseController {
     @RequestMapping("/login")
     public ResultBean login(@RequestParam(name = "userName",required = true) String userName,
                             @RequestParam(name = "password",required = true)String password,
-                            @RequestParam(name = "verificationCode",required = true)String verificationCode){
+                            @RequestParam(name = "verificationCode",required = true)String verificationCode) throws Exception {
         if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password) || StringUtil.isNotEmpty(verificationCode)){
             logger.info("登录信息必要参数不能空");
-            return ResultBean.buildError("登录信息必要参数不能空");
+            throw new Exception("登录信息必要参数不能空");
         }
         return ResultBean.build();
     }
@@ -62,7 +62,7 @@ public class UserMenberController extends BaseController {
      * @return
      */
     @RequestMapping("/addUserMenber")
-    public ResultBean addUserMenber(UserMembers userMember){
+    public ResultBean addUserMenber(UserMembers userMember) throws Exception {
         logger.info("增加用户信息：" + JSONObject.toJSONString(userMember));
         if (StringUtil.isEmpty(userMember.getUserName()) || StringUtil.isEmpty(userMember.getPassword())|| StringUtil.isEmpty(userMember.getSecondPwd())||
                 StringUtil.isEmpty(userMember.getRealName())||
@@ -70,13 +70,13 @@ public class UserMenberController extends BaseController {
                 StringUtil.isEmpty(userMember.getPutPeople())||StringUtil.isEmpty(userMember.getInviter())||
                 StringUtil.isEmpty(userMember.getSite())){
             logger.info("请检查必要参数不能为空!");
-            return ResultBean.buildError(null);
+            throw new Exception("请检查必要参数不能为空");
         }
         try {
             userMenberService.chechUserMenber(userMember);
         } catch (Exception e) {
             logger.error("保存用户信息发生错误：" + e.getMessage());
-            return ResultBean.buildError(e.getMessage());
+            throw new Exception("保存用户信息发生错误");
         }
         return ResultBean.build();
     }
@@ -91,11 +91,11 @@ public class UserMenberController extends BaseController {
     @RequestMapping("/getInviters")
     public ResultBean<PageTool> getInviters(@RequestParam(value = "inviter",required = true) String inviter,
                                             @RequestParam(value = "pageNumber",required = false)Integer pageNumber,
-                                            @RequestParam(value = "pageSize",required = false)Integer pageSize){
+                                            @RequestParam(value = "pageSize",required = false)Integer pageSize) throws Exception {
         ResultBean<PageTool> resultBean = ResultBean.build();
         if (StringUtil.isEmpty(inviter)){
             logger.info("分享人账号不能为空["+inviter+"]");
-            return ResultBean.buildError("分享人账号不能为空");
+            throw new Exception("保存用户信息发生错误");
         }
         PageTool<UserMembers> pageTool = new PageTool<>();
         if (pageSize!=null || pageNumber!=null){
@@ -108,8 +108,7 @@ public class UserMenberController extends BaseController {
             return resultBean;
         } catch (Exception e) {
             logger.error("获取用户分享列表:"+e.getMessage());
-            resultBean.withError("获取用户分享列表错误，请联系管理员！");
-            return resultBean;
+            throw new Exception("获取用户分享列表错误，请联系管理员！");
         }
     }
     /**
@@ -119,7 +118,7 @@ public class UserMenberController extends BaseController {
      * @param response
      */
     @RequestMapping(value = "/genrandcode")
-    public ResultBean genRandCode(HttpServletRequest request, HttpServletResponse response) {
+    public ResultBean genRandCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Object[] objs = ImageRandUtils.getCaptchaImage(80, 30, 25, 2, 5, false, true, ImageRandUtils.ComplexLevel.HARD);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ResultBean resultBean;
@@ -139,7 +138,7 @@ public class UserMenberController extends BaseController {
             return resultBean;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception("图形验证码发生错误");
         }
-        return null;
     }
 }
