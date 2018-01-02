@@ -12,17 +12,9 @@ public enum ResultStatus {
     EXCEPTION(-1, "系统异常"),
     PARAM_ERROR(1000, "参数错误"),
     SYSTEM_ERROR(1001, "系统错误"),
-    FILE_NOT_EXIST(1001, "文件不存在"),
-    FILE_NOT_DOWNLOAD(1002, "文件没有下载"),
-    FILE_NOT_GENERATE(1003, "文件没有生成"),
-    FILE_NOT_STORAGE(1004, "文件没有入库"),
-    SYSTEM_DB_ERROR(1005, "数据库系统错误"),
-    FILE_ALREADY_DOWNLOAD(1003, "文件已经下载"),
-    DATA_ALREADY_PEXISTS(1006, "数据已经存在"),
-    INTEREST_FORMAT_ERROR(1007, "最低利率大于最高利率"),
-    MONTHS_FORMAT_ERROR(1007, "最小月份大于最大月份"),
-    TIME_FORMAT_ERROR(1007, "时间开始大于时间结束");
-
+    PUTPEOPLE_RIGHT_ERROE(1001, "右安置人已经存在，不能放在该人的下面"),
+    PUTPEOPLE_LEFT_ERROE(1002, "左安置人已经存在，不能放在该人的下面"),
+    PUTPEOPLE_EXIST_ERROR(1003,"安置人不存在，请重新输入");
     private int code;
     private String message;
 

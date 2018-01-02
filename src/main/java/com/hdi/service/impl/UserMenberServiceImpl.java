@@ -1,10 +1,13 @@
 package com.hdi.service.impl;
 import com.hdi.dao.UserMenberRepository;
-import com.hdi.model.UserMembers;
+import com.hdi.handler.CommonException;
+import com.hdi.model.UserMenbers;
+import com.hdi.model.commons.ResultStatus;
 import com.hdi.service.UserMenberService;
 import com.hdi.utils.CommonEnum;
 import com.hdi.utils.CommonUtils;
 import com.hdi.utils.PageTool;
+import com.hdi.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,39 +31,45 @@ public class UserMenberServiceImpl implements UserMenberService {
 
     /**
      * 检查对象
-     * @param userMembers
+     * @param userMenbers
      * @throws Exception
      */
     @Override
-    public void chechUserMenber(UserMembers userMembers) throws Exception {
+    public void chechUserMenber(UserMenbers userMenbers) throws Exception {
         String menberCode="";
         do {
             menberCode = CommonUtils.getInviteCode(5);
         }while (findByMemberCode(menberCode)!=null);
-        userMembers.setMemberCode(menberCode);
-        UserMembers putPeopleMenber = findByMemberCode(userMembers.getPutPeople());
+        userMenbers.setMenberCode(menberCode);
+        UserMenbers putPeopleMenber = findByMemberCode(userMenbers.getPutPeople());
         if (null == putPeopleMenber){
-            throw new Exception("安置人：["+ userMembers.getPutPeople()+"],不存在请重新输入！");
+            throw new CommonException(ResultStatus.PUTPEOPLE_EXIST_ERROR);
         }
-        if (userMembers.getSite()== CommonEnum.LEFY_PUTPEOPLE.ordinal()){
-            putPeopleMenber.setPutPeopleLeft(userMembers.getMemberCode());
-        }else if (userMembers.getSite()==CommonEnum.RIGTH_PUTPEOPLE.ordinal()){
-            putPeopleMenber.setPutPeopleRight(userMembers.getMemberCode());
+        if (userMenbers.getSite()== CommonEnum.LEFY_PUTPEOPLE.ordinal()){
+            if (StringUtil.isNotEmpty(putPeopleMenber.getPutPeopleLeft())){
+                throw new CommonException(ResultStatus.PUTPEOPLE_LEFT_ERROE);
+            }
+            putPeopleMenber.setPutPeopleLeft(userMenbers.getMenberCode());
+        }else if (userMenbers.getSite()==CommonEnum.RIGTH_PUTPEOPLE.ordinal()){
+            if (StringUtil.isNotEmpty(putPeopleMenber.getPutPeopleRight())){
+                throw new CommonException(ResultStatus.PUTPEOPLE_RIGHT_ERROE);
+            }
+            putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
-        save(userMembers);
+        save(userMenbers);
         save(putPeopleMenber);
         logger.info("保存会员信息成功");
     }
 
     /**
      * 保存会员信息
-     * @param userMembers
+     * @param userMenbers
      * @return
      * @throws Exception
      */
     @Override
-    public UserMembers save(UserMembers userMembers) throws Exception {
-        return userMenberRepository.save(userMembers);
+    public UserMenbers save(UserMenbers userMenbers) throws Exception {
+        return userMenberRepository.save(userMenbers);
     }
     /**
      * 查询当前会员号
@@ -68,8 +77,8 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @return
      */
     @Override
-    public UserMembers findByMemberCode(String memberCode) {
-        return userMenberRepository.findByMemberCode(memberCode);
+    public UserMenbers findByMemberCode(String memberCode) {
+        return userMenberRepository.findByMenberCode(memberCode);
     }
 
     /**
@@ -79,11 +88,22 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @throws Exception
      */
     @Override
-    public PageTool<UserMembers> findInviterByPage(PageTool<UserMembers> pageTool,String inviter) throws Exception{
+    public PageTool<UserMenbers> findInviterByPage(PageTool<UserMenbers> pageTool, String inviter) throws Exception{
         PageRequest pageable = new PageRequest(pageTool.getPageNumber()-1,pageTool.getPageSize());
-        Page<UserMembers> datas = this.userMenberRepository.findByInviter(inviter,pageable);
+        Page<UserMenbers> datas = this.userMenberRepository.findByInviter(inviter,pageable);
         pageTool.setTotal((int) datas.getTotalElements());
         pageTool.setList(datas.getContent());
         return pageTool;
+    }
+    /**
+     * 登录
+     * @param userName
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public UserMenbers login(String userName, String password) throws Exception {
+        return userMenberRepository.findByMenberCodeAndPassword(userName,password);
     }
 }

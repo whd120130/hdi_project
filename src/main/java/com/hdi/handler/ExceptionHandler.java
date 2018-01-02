@@ -12,6 +12,10 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResultBean handler(Exception e){
+        if (e instanceof CommonException){
+            CommonException exception = (CommonException)e;
+            return ResultBean.buildError(exception.getCode(),exception.getMessage());
+        }
         return ResultBean.buildError(e.getMessage());
     }
 }

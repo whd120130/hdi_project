@@ -1,7 +1,8 @@
 package com.hdi.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hdi.model.UserMembers;
+import com.hdi.handler.CommonException;
+import com.hdi.model.UserMenbers;
 import com.hdi.model.commons.ResultBean;
 import com.hdi.service.UserMenberService;
 import com.hdi.utils.verificationCodeUtil.ImageRandUtils;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Encoder;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,14 +42,12 @@ public class UserMenberController extends BaseController {
      * 用户登录（前端也要做校验）
      * @param userName
      * @param password
-     * @param verificationCode
      * @return
      */
     @RequestMapping("/login")
     public ResultBean login(@RequestParam(name = "userName",required = true) String userName,
-                            @RequestParam(name = "password",required = true)String password,
-                            @RequestParam(name = "verificationCode",required = true)String verificationCode) throws Exception {
-        if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password) || StringUtil.isNotEmpty(verificationCode)){
+                            @RequestParam(name = "password",required = true)String password) throws Exception {
+        if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password)){
             logger.info("登录信息必要参数不能空");
             throw new Exception("登录信息必要参数不能空");
         }
@@ -62,7 +60,7 @@ public class UserMenberController extends BaseController {
      * @return
      */
     @RequestMapping("/addUserMenber")
-    public ResultBean addUserMenber(UserMembers userMember) throws Exception {
+    public ResultBean addUserMenber(UserMenbers userMember) throws Exception {
         logger.info("增加用户信息：" + JSONObject.toJSONString(userMember));
         if (StringUtil.isEmpty(userMember.getUserName()) || StringUtil.isEmpty(userMember.getPassword())|| StringUtil.isEmpty(userMember.getSecondPwd())||
                 StringUtil.isEmpty(userMember.getRealName())||
@@ -72,12 +70,7 @@ public class UserMenberController extends BaseController {
             logger.info("请检查必要参数不能为空!");
             throw new Exception("请检查必要参数不能为空");
         }
-        try {
-            userMenberService.chechUserMenber(userMember);
-        } catch (Exception e) {
-            logger.error("保存用户信息发生错误：" + e.getMessage());
-            throw new Exception("保存用户信息发生错误");
-        }
+        userMenberService.chechUserMenber(userMember);
         return ResultBean.build();
     }
 
@@ -97,13 +90,13 @@ public class UserMenberController extends BaseController {
             logger.info("分享人账号不能为空["+inviter+"]");
             throw new Exception("保存用户信息发生错误");
         }
-        PageTool<UserMembers> pageTool = new PageTool<>();
+        PageTool<UserMenbers> pageTool = new PageTool<>();
         if (pageSize!=null || pageNumber!=null){
             pageTool.setPageNumber(pageNumber);
             pageTool.setPageSize(pageSize);
         }
         try {
-            PageTool<UserMembers> page = userMenberService.findInviterByPage(pageTool,inviter);
+            PageTool<UserMenbers> page = userMenberService.findInviterByPage(pageTool,inviter);
             resultBean.setData(page);
             return resultBean;
         } catch (Exception e) {

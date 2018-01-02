@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "t_usermenber")
-public class UserMembers implements Serializable,Cloneable{
+public class UserMenbers implements Serializable,Cloneable{
     /**
      * 主键
      */
@@ -25,8 +25,8 @@ public class UserMembers implements Serializable,Cloneable{
     /**
      * 会员号
      */
-    @Column(name = "memberCode")
-    private String memberCode;
+    @Column(name = "menberCode")
+    private String menberCode;
     /**
      * 昵称
      */
@@ -145,7 +145,7 @@ public class UserMembers implements Serializable,Cloneable{
     @Column(name = "version", nullable = false)
     private int version = 1;
 
-    public UserMembers(){
+    public UserMenbers(){
 
     }
 
@@ -157,12 +157,12 @@ public class UserMembers implements Serializable,Cloneable{
         this.id = id;
     }
 
-    public String getMemberCode() {
-        return memberCode;
+    public String getMenberCode() {
+        return menberCode;
     }
 
-    public void setMemberCode(String memberCode) {
-        this.memberCode = memberCode;
+    public void setMenberCode(String menberCode) {
+        this.menberCode = menberCode;
     }
 
     public String getAddress() {
