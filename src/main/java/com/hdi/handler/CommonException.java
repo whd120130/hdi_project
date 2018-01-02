@@ -4,7 +4,10 @@ package com.hdi.handler;
 import com.hdi.model.commons.ResultStatus;
 
 /**
- * Created by wanghuidong on 2018/1/2.
+ * 公用的异常处理类
+ * @author wanghuidong
+ * @date 2018-1-2
+ * @version 1.0
  */
 public class CommonException extends RuntimeException {
 

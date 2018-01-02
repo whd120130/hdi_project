@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 拦截器
- * @author 王慧东
+ * @author wanghuidong
  * @date 2-17-12-31
  * @version 1.0
  */

@@ -2,7 +2,7 @@ package com.hdi.model.commons;
 
 /**
  * 返回状态基类
- * @author  王慧东
+ * @author  wanghuidong
  * @date 2017/12/27.
  * @version 1.0
  */
@@ -14,7 +14,8 @@ public enum ResultStatus {
     SYSTEM_ERROR(1001, "系统错误"),
     PUTPEOPLE_RIGHT_ERROE(1001, "右安置人已经存在，不能放在该人的下面"),
     PUTPEOPLE_LEFT_ERROE(1002, "左安置人已经存在，不能放在该人的下面"),
-    PUTPEOPLE_EXIST_ERROR(1003,"安置人不存在，请重新输入");
+    PUTPEOPLE_EXIST_ERROR(1003,"安置人不存在，请重新输入"),
+    INVITER_NOTEXIST_ERROR(1004,"分享人不能为空");
     private int code;
     private String message;
 

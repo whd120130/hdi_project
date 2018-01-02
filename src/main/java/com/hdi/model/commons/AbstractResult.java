@@ -1,7 +1,10 @@
 package com.hdi.model.commons;
 
 /**
- * Created by 王慧东 on 2017/12/27.
+ * 公用类
+ * @author wanghuidong
+ * @date 2-18-1-2
+ * @version 1.0
  */
 public abstract class AbstractResult {
     private int status;

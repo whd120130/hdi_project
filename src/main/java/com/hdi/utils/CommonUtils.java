@@ -3,7 +3,7 @@ package com.hdi.utils;
 import java.util.Random;
 
 /**
- * Created by 王慧东 on 2017/12/30.
+ * Created by wanghuidong on 2017/12/30.
  */
 public class CommonUtils {
     /**

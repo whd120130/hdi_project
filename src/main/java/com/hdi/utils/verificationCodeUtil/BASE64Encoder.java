@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 /**
  * base64加密工具类
- * @author 王慧东
+ * @author wanghuidong
  * @date 2017/12/31.
  * @version
  */

@@ -1,7 +1,10 @@
 package com.hdi.controller;
 
 /**
- * Created by 王慧东 on 2017/12/31.
+ * 公用controller类
+ * @author wanghuidong
+ * @date 2018-1-2
+ * @version 1.0
  */
 public class BaseController {
 

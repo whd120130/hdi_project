@@ -1,10 +1,9 @@
 package com.hdi.utils;
 
-import java.util.EnumSet;
 
 /**
  * 公共枚举类
- * @author 王慧东
+ * @author wanghuidong
  * @date 2017/12/30.
  * @version 1.0
  */

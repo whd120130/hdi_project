@@ -1,6 +1,5 @@
 package com.hdi.job;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by 王慧东 on 2017/12/31.
+ * 定时任务
+ * @author wanghuidong
+ * @date 2017/12/31.
+ * @version 1.0
  */
 @Component
 public class ScheduledTask {

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * 返回数据到前端基类
- * @author  王慧东
+ * @author  wanghuidong
  * @date  2017/12/27.
  * @version
  */

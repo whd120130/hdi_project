@@ -18,7 +18,7 @@ import javax.transaction.Transactional;
 
 /**
  * 会员信息service
- * @author 王慧东
+ * @author wanghuidong
  * @date 2017/12/29.
  * @version
  */

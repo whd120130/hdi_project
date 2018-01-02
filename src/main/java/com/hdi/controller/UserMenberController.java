@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hdi.handler.CommonException;
 import com.hdi.model.UserMenbers;
 import com.hdi.model.commons.ResultBean;
+import com.hdi.model.commons.ResultStatus;
 import com.hdi.service.UserMenberService;
 import com.hdi.utils.verificationCodeUtil.ImageRandUtils;
 import com.hdi.utils.PageTool;
@@ -48,8 +49,7 @@ public class UserMenberController extends BaseController {
     public ResultBean login(@RequestParam(name = "userName",required = true) String userName,
                             @RequestParam(name = "password",required = true)String password) throws Exception {
         if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password)){
-            logger.info("登录信息必要参数不能空");
-            throw new Exception("登录信息必要参数不能空");
+            throw new CommonException(ResultStatus.PARAM_ERROR);
         }
         return ResultBean.build();
     }
@@ -67,8 +67,7 @@ public class UserMenberController extends BaseController {
                 StringUtil.isEmpty(userMember.getAddress())||StringUtil.isEmpty(userMember.getIdNo())||
                 StringUtil.isEmpty(userMember.getPutPeople())||StringUtil.isEmpty(userMember.getInviter())||
                 StringUtil.isEmpty(userMember.getSite())){
-            logger.info("请检查必要参数不能为空!");
-            throw new Exception("请检查必要参数不能为空");
+            throw new CommonException(ResultStatus.PARAM_ERROR);
         }
         userMenberService.chechUserMenber(userMember);
         return ResultBean.build();
@@ -87,22 +86,17 @@ public class UserMenberController extends BaseController {
                                             @RequestParam(value = "pageSize",required = false)Integer pageSize) throws Exception {
         ResultBean<PageTool> resultBean = ResultBean.build();
         if (StringUtil.isEmpty(inviter)){
-            logger.info("分享人账号不能为空["+inviter+"]");
-            throw new Exception("保存用户信息发生错误");
+            logger.info(ResultStatus.INVITER_NOTEXIST_ERROR.getMessage());
+            throw new CommonException(ResultStatus.INVITER_NOTEXIST_ERROR);
         }
         PageTool<UserMenbers> pageTool = new PageTool<>();
         if (pageSize!=null || pageNumber!=null){
             pageTool.setPageNumber(pageNumber);
             pageTool.setPageSize(pageSize);
         }
-        try {
-            PageTool<UserMenbers> page = userMenberService.findInviterByPage(pageTool,inviter);
-            resultBean.setData(page);
-            return resultBean;
-        } catch (Exception e) {
-            logger.error("获取用户分享列表:"+e.getMessage());
-            throw new Exception("获取用户分享列表错误，请联系管理员！");
-        }
+        PageTool<UserMenbers> page = userMenberService.findInviterByPage(pageTool,inviter);
+        resultBean.setData(page);
+        return resultBean;
     }
     /**
      * 图形验证码

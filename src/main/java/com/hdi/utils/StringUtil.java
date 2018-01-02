@@ -17,7 +17,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by 王慧东 on 2017/12/27.
+ * string公用类
+ * @author wanghuidong
+ * @date 2017/12/27.
+ * @version 1.0
  */
 public class StringUtil{
     public static final String sdf_time_pattern = "yyyy-MM-dd HH:mm:ss";
