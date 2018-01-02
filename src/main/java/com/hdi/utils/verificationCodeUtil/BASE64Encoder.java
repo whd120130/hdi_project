@@ -17,14 +17,15 @@ public class BASE64Encoder extends CharacterEncoder {
     public BASE64Encoder() {
     }
 
+    @Override
     protected int bytesPerAtom() {
         return 3;
     }
-
+    @Override
     protected int bytesPerLine() {
         return 57;
     }
-
+    @Override
     protected void encodeAtom(OutputStream var1, byte[] var2, int var3, int var4) throws IOException {
         byte var5;
         if(var4 == 1) {
@@ -55,6 +56,5 @@ public class BASE64Encoder extends CharacterEncoder {
                 var1.write(pem_array[var10 & 63]);
             }
         }
-
     }
 }
