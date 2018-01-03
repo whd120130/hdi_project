@@ -128,4 +128,13 @@ public class UserMenberController extends BaseController {
             throw new Exception("图形验证码发生错误");
         }
     }
+    /**
+     * 我的城邦
+     *
+     * @param menberCode
+     */
+    @RequestMapping(value = "/myCityState")
+    public ResultBean myCityState(@RequestParam(value ="menberCode")String menberCode) throws Exception {
+        return null;
+    }
 }

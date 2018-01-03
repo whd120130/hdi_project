@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 
+
 /**
  * 会员信息service
  * @author wanghuidong
@@ -105,5 +106,54 @@ public class UserMenberServiceImpl implements UserMenberService {
     @Override
     public UserMenbers login(String userName, String password) throws Exception {
         return userMenberRepository.findByMenberCodeAndPassword(userName,password);
+    }
+    /**
+     * 获取我的城邦
+     * @param menberCode
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public UserMenbers myCityState(String menberCode) throws Exception {
+        return getMyCityState(userMenberRepository.findByMenberCode(menberCode));
+    }
+
+    /**
+     * 获取二级城邦
+     * @param user
+     * @return
+     */
+    private UserMenbers getMyCityState(UserMenbers user){
+        if (user!=null){
+            UserMenbers leftOne = userMenberRepository.findByMenberCode(user.getPutPeopleLeft());
+            UserMenbers rigthOne = userMenberRepository.findByMenberCode(user.getPutPeopleRight());
+            if (leftOne!=null && StringUtil.isNotEmpty(leftOne.getPutPeopleLeft())){
+                user.setLeftUser(leftOne);
+            }
+            if (rigthOne!=null && StringUtil.isNotEmpty(leftOne.getPutPeopleRight())){
+                user.setRigthUser(rigthOne);
+            }
+            if(leftOne!=null){
+                UserMenbers leftSecont = userMenberRepository.findByMenberCode(leftOne.getPutPeopleLeft());
+                UserMenbers rigthSecont = userMenberRepository.findByMenberCode(leftOne.getPutPeopleRight());
+                if (leftSecont!=null){
+                    leftOne.setLeftUser(leftSecont);
+                }
+                if (rigthSecont!=null){
+                    leftOne.setRigthUser(rigthSecont);
+                }
+            }
+            if(rigthOne!=null){
+                UserMenbers leftSecont = userMenberRepository.findByMenberCode(rigthOne.getPutPeopleLeft());
+                UserMenbers rigthSecont = userMenberRepository.findByMenberCode(rigthOne.getPutPeopleRight());
+                if (leftSecont!=null){
+                    rigthOne.setLeftUser(leftSecont);
+                }
+                if (rigthSecont!=null){
+                    rigthOne.setRigthUser(rigthSecont);
+                }
+            }
+        }
+        return user;
     }
 }

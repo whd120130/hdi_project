@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 会员信息
@@ -144,6 +145,12 @@ public class UserMenbers implements Serializable,Cloneable{
     @Version
     @Column(name = "version", nullable = false)
     private int version = 1;
+
+    @Transient
+    private UserMenbers leftUser;
+
+    @Transient
+    private UserMenbers rigthUser;
 
     public UserMenbers(){
 
@@ -347,5 +354,21 @@ public class UserMenbers implements Serializable,Cloneable{
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public UserMenbers getLeftUser() {
+        return leftUser;
+    }
+
+    public void setLeftUser(UserMenbers leftUser) {
+        this.leftUser = leftUser;
+    }
+
+    public UserMenbers getRigthUser() {
+        return rigthUser;
+    }
+
+    public void setRigthUser(UserMenbers rigthUser) {
+        this.rigthUser = rigthUser;
     }
 }

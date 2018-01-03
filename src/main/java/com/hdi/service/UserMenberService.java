@@ -2,6 +2,7 @@ package com.hdi.service;
 
 import com.hdi.model.UserMenbers;
 import com.hdi.utils.PageTool;
+import com.sun.org.apache.xalan.internal.utils.XMLSecurityManager;
 
 public interface UserMenberService{
 
@@ -44,4 +45,12 @@ public interface UserMenberService{
      * @throws Exception
      */
     public UserMenbers login(String userName,String password)throws Exception;
+
+    /**
+     * 获取我的城邦
+     * @param menberCode
+     * @return
+     * @throws Exception
+     */
+    public UserMenbers myCityState(String menberCode)throws Exception;
 }
