@@ -1,4 +1,5 @@
 package com.hdi.service.impl;
+import com.alibaba.fastjson.JSONObject;
 import com.hdi.dao.UserMenberRepository;
 import com.hdi.handler.CommonException;
 import com.hdi.model.UserMenbers;
@@ -123,7 +124,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @param user
      * @return
      */
-    private UserMenbers getMyCityState(UserMenbers user){
+    private UserMenbers getMyCityState(UserMenbers user)throws Exception{
         if (user!=null){
             UserMenbers leftOne = userMenberRepository.findByMenberCode(user.getPutPeopleLeft());
             UserMenbers rigthOne = userMenberRepository.findByMenberCode(user.getPutPeopleRight());
@@ -154,6 +155,7 @@ public class UserMenberServiceImpl implements UserMenberService {
                 }
             }
         }
+        logger.info("获取我的城邦：【"+JSONObject.toJSONString(user)+"】");
         return user;
     }
 }
