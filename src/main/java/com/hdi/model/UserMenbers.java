@@ -371,4 +371,37 @@ public class UserMenbers implements Serializable,Cloneable{
     public void setRigthUser(UserMenbers rigthUser) {
         this.rigthUser = rigthUser;
     }
+
+    @Override
+    public String toString() {
+        return "UserMenbers{" +
+                "id=" + id +
+                ", menberCode='" + menberCode + '\'' +
+                ", userName='" + userName + '\'' +
+                ", address='" + address + '\'' +
+                ", idNo='" + idNo + '\'' +
+                ", sex='" + sex + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", realName='" + realName + '\'' +
+                ", inviter='" + inviter + '\'' +
+                ", putPeopleLeft='" + putPeopleLeft + '\'' +
+                ", putPeopleRight='" + putPeopleRight + '\'' +
+                ", putPeople='" + putPeople + '\'' +
+                ", registeredLevel=" + registeredLevel +
+                ", password='" + password + '\'' +
+                ", secondPwd='" + secondPwd + '\'' +
+                ", registereTime=" + registereTime +
+                ", activeTime=" + activeTime +
+                ", age=" + age +
+                ", isActive=" + isActive +
+                ", country='" + country + '\'' +
+                ", email='" + email + '\'' +
+                ", bankNo='" + bankNo + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", site=" + site +
+                ", version=" + version +
+                ", leftUser=" + leftUser +
+                ", rigthUser=" + rigthUser +
+                '}';
+    }
 }
