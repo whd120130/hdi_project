@@ -12,12 +12,12 @@ import com.hdi.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Encoder;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +30,9 @@ import java.util.Map;
 
 /**
  * 会员信息controlller
- * @author 王慧东
+ *
+ * @author wanghuidong
  * @date 2017/12/30.
- * @version
  */
 @RestController
 @RequestMapping("/user")
@@ -44,14 +44,15 @@ public class UserMenberController extends BaseController {
 
     /**
      * 用户登录（前端也要做校验）
+     *
      * @param userName
      * @param password
      * @return
      */
     @RequestMapping("/login")
-    public ResultBean login(@RequestParam(name = "userName",required = true) String userName,
-                            @RequestParam(name = "password",required = true)String password) throws Exception {
-        if (StringUtil.isNotEmpty(userName)|| StringUtil.isNotEmpty(password)){
+    public ResultBean login(@RequestParam(name = "userName", required = true) String userName,
+                            @RequestParam(name = "password", required = true) String password) throws Exception {
+        if (StringUtil.isNotEmpty(userName) || StringUtil.isNotEmpty(password)) {
             throw new CommonException(ResultStatus.PARAM_ERROR);
         }
         return ResultBean.build();
@@ -59,13 +60,16 @@ public class UserMenberController extends BaseController {
 
     /**
      * 增加会员信息
-     * @param userMember (对象接收参数)
-     * @return  @Valid UserInfo userInfo, BindingResult bindingResult
+     *
+     * @param userMember
+     * @param bindingResult
+     * @return
+     * @throws Exception
      */
     @RequestMapping("/addUserMenber")
-    public ResultBean addUserMenber(@Valid UserMenbers userMember,BindingResult bindingResult) throws Exception {
+    public ResultBean addUserMenber(@Valid UserMenbers userMember, BindingResult bindingResult) throws Exception {
         logger.info("增加用户信息：" + JSONObject.toJSONString(userMember));
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
         userMenberService.chechUserMenber(userMember);
@@ -74,29 +78,31 @@ public class UserMenberController extends BaseController {
 
     /**
      * 获取用户分享列表
-     * @param inviter (分享人账号)
-     * @param pageNumber
-     * @param pageSize
+     *
+     * @param inviter    (分享人账号)
+     * @param pageNumber  第几页
+     * @param pageSize 显示多少条
      * @return
      */
     @RequestMapping("/getInviters")
-    public ResultBean<PageTool> getInviters(@RequestParam(value = "inviter",required = true) String inviter,
-                                            @RequestParam(value = "pageNumber",required = false)Integer pageNumber,
-                                            @RequestParam(value = "pageSize",required = false)Integer pageSize) throws Exception {
+    public ResultBean<PageTool> getInviters(@RequestParam(value = "inviter", required = true) String inviter,
+                                            @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                            @RequestParam(value = "pageSize", required = false) Integer pageSize) throws Exception {
         ResultBean<PageTool> resultBean = ResultBean.build();
-        if (StringUtil.isEmpty(inviter)){
+        if (StringUtil.isEmpty(inviter)) {
             logger.info(ResultStatus.INVITER_NOTEXIST_ERROR.getMessage());
             throw new CommonException(ResultStatus.INVITER_NOTEXIST_ERROR);
         }
         PageTool<UserMenbers> pageTool = new PageTool<>();
-        if (pageSize!=null || pageNumber!=null){
+        if (pageSize != null || pageNumber != null) {
             pageTool.setPageNumber(pageNumber);
             pageTool.setPageSize(pageSize);
         }
-        PageTool<UserMenbers> page = userMenberService.findInviterByPage(pageTool,inviter);
+        PageTool<UserMenbers> page = userMenberService.findInviterByPage(pageTool, inviter);
         resultBean.setData(page);
         return resultBean;
     }
+
     /**
      * 图形验证码
      *
@@ -127,13 +133,14 @@ public class UserMenberController extends BaseController {
             throw new Exception("图形验证码发生错误");
         }
     }
+
     /**
      * 我的城邦
      *
      * @param menberCode
      */
     @RequestMapping(value = "/myCityState")
-    public ResultBean myCityState(@RequestParam(value ="menberCode")String menberCode) throws Exception {
+    public ResultBean myCityState(@RequestParam(value = "menberCode") String menberCode) throws Exception {
         ResultBean resultBean = ResultBean.build();
         UserMenbers user = userMenberService.myCityState(menberCode);
         resultBean.setData(user);
