@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * 会员信息
@@ -15,124 +15,124 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "t_usermenber")
+@Table(name = "t_usermenber",indexes = {@Index(name = "idx_menberCode",columnList = "menberCode",unique=true)})
 public class UserMenbers implements Serializable,Cloneable{
     /**
      * 主键
      */
     @Id
     @GeneratedValue()
-    private Integer id;
+    private Integer userId;
     /**
      * 会员号
      */
-    @Column(name = "menberCode")
+    @Column(name = "menberCode",nullable=false,columnDefinition = "varchar(255) COMMENT '会员号'")
     private String menberCode;
     /**
      * 昵称
      */
-    @Column(name = "userName")
+    @Column(name = "userName",columnDefinition = "varchar(255) COMMENT '昵称'")
     private String userName;
     /**
      * 地址
      */
-    @Column(name = "address")
+    @Column(name = "address",columnDefinition = "varchar(255) COMMENT '住址'")
     private String address;
     /**
      * 身份证号
      */
-    @Column(name = "idNo")
+    @Column(name = "idNo",columnDefinition = "varchar(255) COMMENT '身份证号码'")
     private String idNo;
     /**
      * 性别
      */
-    @Column(name = "sex")
+    @Column(name = "sex",columnDefinition = "varchar(255) COMMENT '性别'")
     private String sex;
     /**
      * 手机号码
      */
-    @Column(name = "mobile")
+    @Column(name = "mobile",columnDefinition = "varchar(255) COMMENT '手机号码'")
     private String mobile;
     /**
      * 真实名字
      */
-    @Column(name = "realName")
+    @Column(name = "realName",columnDefinition = "varchar(255) COMMENT '真实姓名'")
     private String realName;
     /**
      * 邀请人
      */
-    @Column(name = "inviter")
+    @Column(name = "inviter",columnDefinition = "varchar(255) COMMENT '邀请人'")
     private String inviter;
     /**
-     * 被安置人（左）
+     * 安置人（左）
      */
-    @Column(name = "putPeopleLeft")
+    @Column(name = "putPeopleLeft",columnDefinition = "varchar(255) COMMENT '安置人（左）'")
     private String putPeopleLeft;
     /**
-     * 被安置人（右）
+     * 安置人（右）
      */
-    @Column(name = "putPeopleRight")
+    @Column(name = "putPeopleRight",columnDefinition = "varchar(255) COMMENT '安置人（右）'")
     private String putPeopleRight;
     /**
-     * 安置人
+     * 被安置人
      */
-    @Column(name ="putPeople")
+    @Column(name ="putPeople",columnDefinition = "varchar(255) COMMENT '被安置人'")
     private String putPeople;
     /**
      * 注册级别
      */
-    @Column(name = "registeredLevel")
+    @Column(name = "registeredLevel",columnDefinition = "int(11) COMMENT '注册级别'")
     private Integer registeredLevel;
     /**
      * 登录密码
      */
-    @Column(name = "password")
+    @Column(name = "password",columnDefinition = "varchar(255) COMMENT '登录密码'")
     private String password;
     /**
      * 安全密码
      */
-    @Column(name = "secondPwd")
+    @Column(name = "secondPwd",columnDefinition = "varchar(255) COMMENT '安全密码'")
     private String secondPwd;
     /**
      * 注册时间
      */
-    @Column(name = "registereTime")
+    @Column(name = "registereTime",columnDefinition = "datetime COMMENT '注册时间'")
     private Date registereTime = new Date();
     /**
      * 激活时间
      */
-    @Column(name = "activeTime")
+    @Column(name = "activeTime",columnDefinition = "datetime COMMENT '激活时间'")
     private Date activeTime;
     /**
      * 会员年龄
      */
-    @Column(name = "age")
+    @Column(name = "age",columnDefinition = "int(11) COMMENT '会员年龄'")
     private Integer age;
     /**
      * 是否激活
      */
-    @Column(name = "isActive")
-    private boolean isActive;
+    @Column(name = "isActive",columnDefinition = "bit(1) COMMENT '是否激活'")
+    private boolean isActive=false;
     /**
      * 国家
      */
-    @Column(name = "country")
+    @Column(name = "country",columnDefinition = "varchar(255) COMMENT '国家'")
     private String country;
     /**
      * 邮件
      */
-    @Column(name = "email")
+    @Column(name = "email",columnDefinition = "varchar(255) COMMENT '邮件'")
     @Email
     private String email;
     /**
      * 银行卡号
      */
-    @Column(name = "bankNo")
+    @Column(name = "bankNo",columnDefinition = "varchar(255) COMMENT '银行卡号'")
     private String bankNo;
     /**
      * 银行名称
      */
-    @Column(name = "bankName")
+    @Column(name = "bankName",columnDefinition = "varchar(255) COMMENT '银行名称'")
     private String bankName;
     /**
      * 区间位置（0：左，1：右）
@@ -156,12 +156,12 @@ public class UserMenbers implements Serializable,Cloneable{
 
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getMenberCode() {
@@ -375,7 +375,7 @@ public class UserMenbers implements Serializable,Cloneable{
     @Override
     public String toString() {
         return "UserMenbers{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", menberCode='" + menberCode + '\'' +
                 ", userName='" + userName + '\'' +
                 ", address='" + address + '\'' +
