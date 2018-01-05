@@ -29,16 +29,16 @@ public class ChanelInterceptor implements HandlerInterceptor {
         if (HandlerMethod.class.equals(handler.getClass())) {
             HandlerMethod method = (HandlerMethod) handler;
             Object controller = method.getBean();
-            if (controller instanceof BaseController) {
-                String uri = requestURI.substring(requestURI.lastIndexOf("/"));
-                if (uri.startsWith("/login") || uri.startsWith("/imageLogin") || uri.startsWith("/checkLogin")){
-                    ((BaseController) method.getBean()).setId(Integer.parseInt(userId));
-                    return true;
-                }else {
-                    // 非法请求 重定向到登录页面
-                    response.sendRedirect(request.getContextPath() + loginUrl);
-                    return false;
-                }
+//            if (controller instanceof BaseController) {
+//                String uri = requestURI.substring(requestURI.lastIndexOf("/"));
+//                if (uri.startsWith("/login") || uri.startsWith("/imageLogin") || uri.startsWith("/checkLogin")){
+//                    ((BaseController) method.getBean()).setId(Integer.parseInt(userId));
+//                    return true;
+//                }else {
+//                    // 非法请求 重定向到登录页面
+//                    response.sendRedirect(request.getContextPath() + loginUrl);
+//                    return false;
+//                }
 //                if (StringUtil.isEmpty(userId)) {
 ////                    logger.error(ResultStatus.LOGIN_ERROE.getMessage());
 ////                    ResultBean resultBean = ResultBean.buildError(ResultStatus.LOGIN_ERROE.getCode(),ResultStatus.LOGIN_ERROE.getMessage());
@@ -52,9 +52,9 @@ public class ChanelInterceptor implements HandlerInterceptor {
 //                    logger.info(Thread.currentThread().getName() + " set userId:" + userId);
 //                    return true;
 //                }
-            }
+//            }
         }
-        return false;
+        return true;
     }
 
     @Override

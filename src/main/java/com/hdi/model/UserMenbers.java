@@ -2,6 +2,7 @@ package com.hdi.model;
 
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,16 +33,19 @@ public class UserMenbers implements Serializable,Cloneable{
      * 昵称
      */
     @Column(name = "userName",columnDefinition = "varchar(255) COMMENT '昵称'")
+    @NotEmpty(message="昵称不能为空！")
     private String userName;
     /**
      * 地址
      */
     @Column(name = "address",columnDefinition = "varchar(255) COMMENT '住址'")
+    @NotEmpty(message="地址不能为空！")
     private String address;
     /**
      * 身份证号
      */
     @Column(name = "idNo",columnDefinition = "varchar(255) COMMENT '身份证号码'")
+    @NotEmpty(message="身份证号不能为空！")
     private String idNo;
     /**
      * 性别
@@ -62,6 +66,7 @@ public class UserMenbers implements Serializable,Cloneable{
      * 邀请人
      */
     @Column(name = "inviter",columnDefinition = "varchar(255) COMMENT '邀请人'")
+    @NotEmpty(message="邀请人不能为空！")
     private String inviter;
     /**
      * 安置人（左）
@@ -81,7 +86,8 @@ public class UserMenbers implements Serializable,Cloneable{
     /**
      * 注册级别
      */
-    @Column(name = "registeredLevel",columnDefinition = "int(11) COMMENT '注册级别'")
+    @Column(name = "registeredLevel",nullable = false,columnDefinition = "int(11) COMMENT '注册级别'")
+    @NotEmpty(message="注册级别不能为空！")
     private Integer registeredLevel;
     /**
      * 登录密码

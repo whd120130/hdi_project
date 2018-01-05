@@ -12,6 +12,8 @@ import com.hdi.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import sun.misc.BASE64Encoder;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -57,17 +60,13 @@ public class UserMenberController extends BaseController {
     /**
      * 增加会员信息
      * @param userMember (对象接收参数)
-     * @return
+     * @return  @Valid UserInfo userInfo, BindingResult bindingResult
      */
     @RequestMapping("/addUserMenber")
-    public ResultBean addUserMenber(UserMenbers userMember) throws Exception {
+    public ResultBean addUserMenber(@Valid UserMenbers userMember,BindingResult bindingResult) throws Exception {
         logger.info("增加用户信息：" + JSONObject.toJSONString(userMember));
-        if (StringUtil.isEmpty(userMember.getUserName()) || StringUtil.isEmpty(userMember.getPassword())|| StringUtil.isEmpty(userMember.getSecondPwd())||
-                StringUtil.isEmpty(userMember.getRealName())||
-                StringUtil.isEmpty(userMember.getAddress())||StringUtil.isEmpty(userMember.getIdNo())||
-                StringUtil.isEmpty(userMember.getPutPeople())||StringUtil.isEmpty(userMember.getInviter())||
-                StringUtil.isEmpty(userMember.getSite())){
-            throw new CommonException(ResultStatus.PARAM_ERROR);
+        if (bindingResult.hasErrors()){
+            throw new Exception(bindingResult.getFieldError().getDefaultMessage());
         }
         userMenberService.chechUserMenber(userMember);
         return ResultBean.build();
