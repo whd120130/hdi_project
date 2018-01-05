@@ -22,7 +22,6 @@ import javax.transaction.Transactional;
  * @version
  */
 @Component
-@Transactional
 public class UserMenberServiceImpl implements UserMenberService {
     private static final Logger logger = LoggerFactory.getLogger(UserMenberServiceImpl.class);
     @Autowired
@@ -34,6 +33,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public void chechUserMenber(UserMenbers userMenbers) throws Exception {
         String menberCode="";
         do {
@@ -55,8 +55,8 @@ public class UserMenberServiceImpl implements UserMenberService {
             }
             putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
-        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
-        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
+//        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
+//        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
         save(userMenbers);
         save(putPeopleMenber);
         logger.info("保存会员信息成功");
