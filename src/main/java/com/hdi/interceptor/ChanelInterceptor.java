@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2-17-12-31
  * @version 1.0
  */
-@Component
 public class ChanelInterceptor implements HandlerInterceptor {
     private static Logger logger = LoggerFactory.getLogger(ChanelInterceptor.class);
     @Override
