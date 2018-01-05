@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -33,13 +34,13 @@ public class UserMenbers implements Serializable,Cloneable{
      * 昵称
      */
     @Column(name = "userName",columnDefinition = "varchar(255) COMMENT '昵称'")
-    @NotEmpty(message="昵称不能为空！")
+    @NotNull(message="昵称不能为空！")
     private String userName;
     /**
      * 地址
      */
     @Column(name = "address",columnDefinition = "varchar(255) COMMENT '住址'")
-    @NotEmpty(message="地址不能为空！")
+    @NotNull(message="地址不能为空！")
     private String address;
     /**
      * 身份证号
@@ -66,7 +67,7 @@ public class UserMenbers implements Serializable,Cloneable{
      * 邀请人
      */
     @Column(name = "inviter",columnDefinition = "varchar(255) COMMENT '邀请人'")
-    @NotEmpty(message="邀请人不能为空！")
+    @NotNull(message="邀请人不能为空！")
     private String inviter;
     /**
      * 安置人（左）
@@ -87,17 +88,19 @@ public class UserMenbers implements Serializable,Cloneable{
      * 注册级别
      */
     @Column(name = "registeredLevel",nullable = false,columnDefinition = "int(11) COMMENT '注册级别'")
-    @NotEmpty(message="注册级别不能为空！")
+    @NotNull(message="注册级别不能为空！")
     private Integer registeredLevel;
     /**
      * 登录密码
      */
     @Column(name = "password",columnDefinition = "varchar(255) COMMENT '登录密码'")
+    @NotNull(message="密码不能为空！")
     private String password;
     /**
      * 安全密码
      */
     @Column(name = "secondPwd",columnDefinition = "varchar(255) COMMENT '安全密码'")
+    @NotNull(message="安全密码不能为空！")
     private String secondPwd;
     /**
      * 注册时间

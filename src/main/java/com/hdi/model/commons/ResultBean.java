@@ -24,7 +24,7 @@ public class ResultBean<T>extends AbstractResult implements Serializable {
         if (StringUtil.isEmpty(message)){
             message = ResultStatus.PARAM_ERROR.getMessage();
         }
-        return new ResultBean<T>(ResultStatus.PARAM_ERROR.ordinal(),message);
+        return new ResultBean<T>(ResultStatus.PARAM_ERROR.getCode(),message);
     }
 
     public static <T> ResultBean<T> buildError(int code,String message) {
@@ -34,7 +34,7 @@ public class ResultBean<T>extends AbstractResult implements Serializable {
         return new ResultBean<T>(code,message);
     }
     public static <T> ResultBean<T> build(String message) {
-        return new ResultBean<T>(ResultStatus.SUCCESS.ordinal(), message);
+        return new ResultBean<T>(ResultStatus.SUCCESS.getCode(), message);
     }
 
     private T data;

@@ -5,10 +5,7 @@ import com.hdi.handler.CommonException;
 import com.hdi.model.UserMenbers;
 import com.hdi.model.commons.ResultStatus;
 import com.hdi.service.UserMenberService;
-import com.hdi.utils.CommonEnum;
-import com.hdi.utils.CommonUtils;
-import com.hdi.utils.PageTool;
-import com.hdi.utils.StringUtil;
+import com.hdi.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +55,8 @@ public class UserMenberServiceImpl implements UserMenberService {
             }
             putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
+        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
+        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
         save(userMenbers);
         save(putPeopleMenber);
         logger.info("保存会员信息成功");
