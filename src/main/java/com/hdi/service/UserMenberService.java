@@ -39,12 +39,12 @@ public interface UserMenberService{
 
     /**
      * 登录
-     * @param userName
+     * @param menberCode
      * @param password
      * @return
      * @throws Exception
      */
-    public UserMenbers login(String userName,String password)throws Exception;
+    public UserMenbers login(String menberCode,String password)throws Exception;
 
     /**
      * 获取我的城邦

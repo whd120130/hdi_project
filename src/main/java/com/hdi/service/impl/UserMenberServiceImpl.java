@@ -55,8 +55,8 @@ public class UserMenberServiceImpl implements UserMenberService {
             }
             putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
-//        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
-//        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
+        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
+        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
         save(userMenbers);
         save(putPeopleMenber);
         logger.info("保存会员信息成功");
@@ -95,17 +95,6 @@ public class UserMenberServiceImpl implements UserMenberService {
         pageTool.setTotal((int) datas.getTotalElements());
         pageTool.setList(datas.getContent());
         return pageTool;
-    }
-    /**
-     * 登录
-     * @param userName
-     * @param password
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public UserMenbers login(String userName, String password) throws Exception {
-        return userMenberRepository.findByMenberCodeAndPassword(userName,password);
     }
     /**
      * 获取我的城邦
@@ -156,5 +145,20 @@ public class UserMenberServiceImpl implements UserMenberService {
         }
         logger.info("获取我的城邦：【"+JSONObject.toJSONString(user)+"】");
         return user;
+    }
+    /**
+     * 登录
+     * @param menberCode
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public UserMenbers login(String menberCode,String password){
+        UserMenbers user = userMenberRepository.findByMenberCode(menberCode);
+        if (BCryptUtil.check(password,user.getPassword())){
+            return user;
+        }else {
+            return null;
+        }
     }
 }

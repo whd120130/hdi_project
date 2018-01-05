@@ -119,11 +119,11 @@
 			<version>1.7.21</version>
 		</dependency>
         <!--密码加密-->
-		<!--<dependency>-->
-			<!--<groupId>org.mindrot</groupId>-->
-			<!--<artifactId>jbcrypt</artifactId>-->
-			<!--<version>0.4</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
