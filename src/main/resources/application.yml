@@ -21,7 +21,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       dialect: org.hibernate.dialect.MySQL5Dialect
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

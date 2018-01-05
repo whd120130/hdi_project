@@ -56,6 +56,9 @@ public class UserMenberController extends BaseController {
             throw new CommonException(ResultStatus.PARAM_ERROR);
         }
         UserMenbers userMenbers = userMenberService.login(menberCode,password);
+        if (userMenbers ==null){
+            throw new CommonException(ResultStatus.LOGIN_ERROE);
+        }
         resultBean.setData(userMenbers);
         return resultBean;
     }
