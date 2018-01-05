@@ -55,8 +55,8 @@ public class UserMenberServiceImpl implements UserMenberService {
             }
             putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
-        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
-        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
+        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword().toLowerCase()));
+        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd().toLowerCase()));
         save(userMenbers);
         save(putPeopleMenber);
         logger.info("保存会员信息成功");
@@ -155,7 +155,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      */
     public UserMenbers login(String menberCode,String password){
         UserMenbers user = userMenberRepository.findByMenberCode(menberCode);
-        if (BCryptUtil.check(password,user.getPassword())){
+        if (BCryptUtil.check(password,user.getPassword().toLowerCase())){
             return user;
         }else {
             return null;
