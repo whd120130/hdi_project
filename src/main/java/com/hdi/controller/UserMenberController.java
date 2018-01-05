@@ -135,6 +135,9 @@ public class UserMenberController extends BaseController {
      */
     @RequestMapping(value = "/myCityState")
     public ResultBean myCityState(@RequestParam(value ="menberCode")String menberCode) throws Exception {
-        return null;
+        ResultBean resultBean = ResultBean.build();
+        UserMenbers user = userMenberService.myCityState(menberCode);
+        resultBean.setData(user);
+        return resultBean;
     }
 }

@@ -1,6 +1,8 @@
 package com.hdi.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hdi.controller.BaseController;
+import com.hdi.model.commons.ResultStatus;
 import com.hdi.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,17 +26,24 @@ public class ChanelInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("****************preHandle");
+        String id = request.getParameter("id");
         if (HandlerMethod.class.equals(handler.getClass())) {
             HandlerMethod method = (HandlerMethod) handler;
             Object controller = method.getBean();
             if (controller instanceof BaseController) {
-                String id = request.getParameter("id");
                 String ipAddress = request.getParameter("ipAddress");
                 if (StringUtil.isNotEmpty(ipAddress)) {
                     ((BaseController) method.getBean()).setIpAddress(ipAddress);
                 }
                 if (StringUtil.isEmpty(id) || "0".equals(id)) {
-                    logger.error("Id not found");
+                    logger.error("系统无法获取当前登录用户");
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("status", ResultStatus.LOGIN_ERROE.getCode());
+                    jsonObj.put("message", "系统无法获取当前登录用户");
+                    jsonObj.put("value", null);
+                    response.setCharacterEncoding("UTF-8");
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.getWriter().write(jsonObj.toString());
                     return false;
                 } else {
                     ((BaseController) method.getBean()).setId(Integer.parseInt(id));
