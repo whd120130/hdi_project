@@ -10,7 +10,7 @@ public enum ResultStatus {
     SUCCESS(0, "成功"),
     FAILD(-1, "失败"),
     EXCEPTION(-1, "系统异常"),
-    LOGIN_ERROE(-4,"登录异常"),
+    LOGIN_ERROE(-4,"系统无法获取当前登录用户"),
     PARAM_ERROR(1000, "参数错误"),
     SYSTEM_ERROR(1001, "系统错误"),
     PUTPEOPLE_RIGHT_ERROE(1001, "右安置人已经存在，不能放在该人的下面"),
