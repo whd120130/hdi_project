@@ -1,11 +1,14 @@
 package com.hdi.dao;
 
 import com.hdi.model.UserMenbers;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
 
 /**
  * 会员信息service
@@ -13,16 +16,17 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @date 2017/12/29.
  * @version
  */
+@CacheConfig(cacheNames = "usermenber")
 public interface UserMenberRepository extends PagingAndSortingRepository<UserMenbers,Integer> {
     /**
-     * 查询当前会员号存在不存在
+     * 查询会员信息
      * @param memberCode
      * @return
      */
     public UserMenbers findByMenberCode(String memberCode);
 
     /**
-     * 查询当前会员号存在不存在
+     * 查询会员信息带分页
      * @param inviter
      * @return
      */

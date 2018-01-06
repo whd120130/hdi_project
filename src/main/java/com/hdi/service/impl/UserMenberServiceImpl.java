@@ -9,6 +9,7 @@ import com.hdi.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,13 @@ import javax.transaction.Transactional;
  */
 @Component
 public class UserMenberServiceImpl implements UserMenberService {
+
+
+    //这里的单引号不能少，否则会报错，被识别是一个对象
+    private static final String CACHE_KEY = "'user'";
+    private static final String DEMO_CACHE_NAME = "users";
+
+
     private static final Logger logger = LoggerFactory.getLogger(UserMenberServiceImpl.class);
     @Autowired
     private UserMenberRepository userMenberRepository;
@@ -88,6 +96,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @return
      * @throws Exception
      */
+    //@Cacheable(value=DEMO_CACHE_NAME,key="'user_'+#uuid")
     @Override
     public PageTool<UserMenbers> findInviterByPage(PageTool<UserMenbers> pageTool, String inviter) throws Exception{
         PageRequest pageable = new PageRequest(pageTool.getPageNumber()-1,pageTool.getPageSize());
