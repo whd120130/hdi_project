@@ -1,6 +1,7 @@
 package com.hdi.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hdi.controller.base.BaseController;
 import com.hdi.handler.CommonException;
 import com.hdi.model.UserMenbers;
 import com.hdi.model.commons.ResultBean;
@@ -35,9 +36,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
-public class UserMenberController extends BaseController {
+public class IndexController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserMenberController.class);
+    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     private UserMenberService userMenberService;
 

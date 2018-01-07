@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpRequestAspect {
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestAspect.class);
 
-    @Pointcut("execution(public * com.hdi.controller.UserMenberController.*(..))")
+    @Pointcut("execution(public * com.hdi.controller.*.*(..))")
     public void log(){
     }
     @Before("log()")

@@ -9,7 +9,6 @@ import com.hdi.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -115,7 +114,6 @@ public class UserMenberServiceImpl implements UserMenberService {
     public UserMenbers myCityState(String menberCode) throws Exception {
         return getMyCityState(userMenberRepository.findByMenberCode(menberCode));
     }
-
     /**
      * 获取二级城邦
      * @param user
@@ -164,7 +162,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      */
     public UserMenbers login(String menberCode,String password){
         UserMenbers user = userMenberRepository.findByMenberCode(menberCode);
-        if (BCryptUtil.check(password,user.getPassword().toLowerCase())){
+        if (BCryptUtil.check(password.toLowerCase(),user.getPassword())){
             return user;
         }else {
             return null;

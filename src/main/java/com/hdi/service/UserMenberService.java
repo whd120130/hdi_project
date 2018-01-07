@@ -2,6 +2,8 @@ package com.hdi.service;
 
 import com.hdi.model.UserMenbers;
 import com.hdi.utils.PageTool;
+import org.springframework.web.bind.annotation.RequestParam;
+
 public interface UserMenberService{
 
     /**
