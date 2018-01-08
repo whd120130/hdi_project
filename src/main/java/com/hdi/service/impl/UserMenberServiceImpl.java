@@ -33,7 +33,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @throws Exception
      */
     @Override
-    @Transactional
+    //@Transactional
     public void chechUserMenber(UserMenbers userMenbers) throws Exception {
         String menberCode="";
         do {
@@ -58,7 +58,7 @@ public class UserMenberServiceImpl implements UserMenberService {
 //        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
 //        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
         save(userMenbers);
-        save(putPeopleMenber);
+        //save(putPeopleMenber);
         logger.info("保存会员信息成功");
     }
 
