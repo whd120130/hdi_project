@@ -23,6 +23,13 @@ import javax.transaction.Transactional;
  */
 @Component
 public class UserMenberServiceImpl implements UserMenberService {
+
+
+    //这里的单引号不能少，否则会报错，被识别是一个对象
+    private static final String CACHE_KEY = "'user'";
+    private static final String DEMO_CACHE_NAME = "users";
+
+
     private static final Logger logger = LoggerFactory.getLogger(UserMenberServiceImpl.class);
     @Autowired
     private UserMenberRepository userMenberRepository;
@@ -55,8 +62,8 @@ public class UserMenberServiceImpl implements UserMenberService {
             }
             putPeopleMenber.setPutPeopleRight(userMenbers.getMenberCode());
         }
-//        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword()));
-//        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd()));
+        userMenbers.setPassword(BCryptUtil.encrypt(userMenbers.getPassword().toLowerCase()));
+        userMenbers.setSecondPwd(BCryptUtil.encrypt(userMenbers.getSecondPwd().toLowerCase()));
         save(userMenbers);
         //save(putPeopleMenber);
         logger.info("保存会员信息成功");
@@ -88,6 +95,7 @@ public class UserMenberServiceImpl implements UserMenberService {
      * @return
      * @throws Exception
      */
+    //@Cacheable(value=DEMO_CACHE_NAME,key="'user_'+#uuid")
     @Override
     public PageTool<UserMenbers> findInviterByPage(PageTool<UserMenbers> pageTool, String inviter) throws Exception{
         PageRequest pageable = new PageRequest(pageTool.getPageNumber()-1,pageTool.getPageSize());
@@ -95,17 +103,6 @@ public class UserMenberServiceImpl implements UserMenberService {
         pageTool.setTotal((int) datas.getTotalElements());
         pageTool.setList(datas.getContent());
         return pageTool;
-    }
-    /**
-     * 登录
-     * @param userName
-     * @param password
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public UserMenbers login(String userName, String password) throws Exception {
-        return userMenberRepository.findByMenberCodeAndPassword(userName,password);
     }
     /**
      * 获取我的城邦
@@ -117,7 +114,6 @@ public class UserMenberServiceImpl implements UserMenberService {
     public UserMenbers myCityState(String menberCode) throws Exception {
         return getMyCityState(userMenberRepository.findByMenberCode(menberCode));
     }
-
     /**
      * 获取二级城邦
      * @param user
@@ -156,5 +152,20 @@ public class UserMenberServiceImpl implements UserMenberService {
         }
         logger.info("获取我的城邦：【"+JSONObject.toJSONString(user)+"】");
         return user;
+    }
+    /**
+     * 登录
+     * @param menberCode
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public UserMenbers login(String menberCode,String password){
+        UserMenbers user = userMenberRepository.findByMenberCode(menberCode);
+        if (BCryptUtil.check(password.toLowerCase(),user.getPassword())){
+            return user;
+        }else {
+            return null;
+        }
     }
 }

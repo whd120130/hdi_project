@@ -2,8 +2,9 @@ spring:
   datasource:
     username: root
     password: root
+    #jdbc:mysql://mysql.hoomxb.com:3306/hoomxb37?autoReconnect=true&amp;useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
     #jdbc:mysql://localhost:3306/mysql?autoReconnect=true&;useOldAliasMetadataBehavior=true&;useUnicode=true&;characterEncoding=UTF-8
-    url: jdbc:mysql://mysql.hoomxb.com:3306/hoomxb37?autoReconnect=true&amp;useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/mysql?autoReconnect=true&;useOldAliasMetadataBehavior=true&;useUnicode=true&;characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     #sql-script-encoding: utf-8
     maximum-pool-size: 100
@@ -20,7 +21,7 @@ spring:
     show-sql: true
     database: mysql
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
       dialect: org.hibernate.dialect.MySQL5Dialect
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

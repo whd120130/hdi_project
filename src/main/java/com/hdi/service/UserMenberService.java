@@ -2,7 +2,7 @@ package com.hdi.service;
 
 import com.hdi.model.UserMenbers;
 import com.hdi.utils.PageTool;
-import com.sun.org.apache.xalan.internal.utils.XMLSecurityManager;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserMenberService{
 
@@ -39,12 +39,12 @@ public interface UserMenberService{
 
     /**
      * 登录
-     * @param userName
+     * @param menberCode
      * @param password
      * @return
      * @throws Exception
      */
-    public UserMenbers login(String userName,String password)throws Exception;
+    public UserMenbers login(String menberCode,String password)throws Exception;
 
     /**
      * 获取我的城邦

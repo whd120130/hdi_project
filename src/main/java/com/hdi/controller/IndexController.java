@@ -1,6 +1,7 @@
 package com.hdi.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hdi.controller.base.BaseController;
 import com.hdi.handler.CommonException;
 import com.hdi.model.UserMenbers;
 import com.hdi.model.commons.ResultBean;
@@ -35,26 +36,32 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/user")
-public class UserMenberController extends BaseController {
+public class IndexController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserMenberController.class);
+    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     private UserMenberService userMenberService;
 
     /**
      * 用户登录（前端也要做校验）
      *
-     * @param userName
+     * @param menberCode
      * @param password
      * @return
      */
     @RequestMapping("/login")
-    public ResultBean login(@RequestParam(name = "userName", required = true) String userName,
+    public ResultBean login(@RequestParam(name = "menberCode", required = true) String menberCode,
                             @RequestParam(name = "password", required = true) String password) throws Exception {
-        if (StringUtil.isNotEmpty(userName) || StringUtil.isNotEmpty(password)) {
+        ResultBean resultBean = ResultBean.build();
+        if (StringUtil.isEmpty(menberCode) || StringUtil.isEmpty(password)) {
             throw new CommonException(ResultStatus.PARAM_ERROR);
         }
-        return ResultBean.build();
+        UserMenbers userMenbers = userMenberService.login(menberCode,password);
+        if (userMenbers ==null){
+            throw new CommonException(ResultStatus.LOGIN_ERROE);
+        }
+        resultBean.setData(userMenbers);
+        return resultBean;
     }
 
     /**

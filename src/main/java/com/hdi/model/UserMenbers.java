@@ -139,10 +139,16 @@ public class UserMenbers implements Serializable,Cloneable{
     @Column(name = "bankNo",columnDefinition = "varchar(255) COMMENT '银行卡号'")
     private String bankNo;
     /**
-     * 银行名称
+     * 开户银行
      */
-    @Column(name = "bankName",columnDefinition = "varchar(255) COMMENT '银行名称'")
+    @Column(name = "bankName",columnDefinition = "varchar(255) COMMENT '开户银行'")
     private String bankName;
+    /**
+     * 银行开户名
+     */
+    @Column(name = "bankAccount",columnDefinition = "varchar(255) COMMENT '银行开户名'")
+    private String bankAccount;
+
     /**
      * 区间位置（0：左，1：右）
      */
@@ -381,6 +387,14 @@ public class UserMenbers implements Serializable,Cloneable{
         this.rigthUser = rigthUser;
     }
 
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
     @Override
     public String toString() {
         return "UserMenbers{" +
@@ -407,6 +421,7 @@ public class UserMenbers implements Serializable,Cloneable{
                 ", email='" + email + '\'' +
                 ", bankNo='" + bankNo + '\'' +
                 ", bankName='" + bankName + '\'' +
+                ", bankAccount='" + bankAccount + '\'' +
                 ", site=" + site +
                 ", version=" + version +
                 ", leftUser=" + leftUser +

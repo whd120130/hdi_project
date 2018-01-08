@@ -6,13 +6,16 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
 //@EnableScheduling(定时启动任务暂时注释掉)
+@ImportResource(locations="ehcache.xml")
+@EnableCaching
 public class HdiApplication{
 	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {

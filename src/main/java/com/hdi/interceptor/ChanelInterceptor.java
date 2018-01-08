@@ -1,8 +1,5 @@
 package com.hdi.interceptor;
 
-import com.hdi.controller.BaseController;
-import com.hdi.model.commons.ResultStatus;
-import com.hdi.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -64,6 +61,5 @@ public class ChanelInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        logger.info("****************afterCompletion");
     }
 }

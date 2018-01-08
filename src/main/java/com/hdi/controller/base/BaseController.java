@@ -1,4 +1,6 @@
-package com.hdi.controller;
+package com.hdi.controller.base;
+
+import com.hdi.utils.StringUtil;
 
 /**
  * 公用controller类
@@ -12,6 +14,8 @@ public class BaseController {
     /**
      * 用户客户端IP地址(用于防刷)
      */
+    private ThreadLocal<String> menberCode = new ThreadLocal();
+
     private ThreadLocal<String> ipAddress = new ThreadLocal();
 
     public void setId(Integer userId) {
@@ -33,5 +37,16 @@ public class BaseController {
             return ipAddress.get();
         }
         return null;
+    }
+
+    public String getMenberCode() {
+        if (StringUtil.isNotEmpty(menberCode)) {
+            return menberCode.get();
+        }
+        return null;
+    }
+
+    public void setMenberCode(ThreadLocal<String> menberCode) {
+        this.menberCode = menberCode;
     }
 }
