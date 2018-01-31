@@ -4,6 +4,7 @@ spring:
     password: root
     #jdbc:mysql://mysql.hoomxb.com:3306/hoomxb37?autoReconnect=true&amp;useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8
     #jdbc:mysql://localhost:3306/mysql?autoReconnect=true&;useOldAliasMetadataBehavior=true&;useUnicode=true&;characterEncoding=UTF-8
+    #本地数据库配置
     url: jdbc:mysql://localhost:3306/mysql?autoReconnect=true&;useOldAliasMetadataBehavior=true&;useUnicode=true&;characterEncoding=UTF-8
     driver-class-name: com.mysql.jdbc.Driver
     #sql-script-encoding: utf-8
